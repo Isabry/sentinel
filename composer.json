@@ -1,0 +1,14 @@
+{
+    "name": "isabry/sentinel",
+    "description": "Tracker",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ismail SABRY",
+            "email": "ismail@sabry.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    }
+}
