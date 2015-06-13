@@ -26,4 +26,8 @@
 	Route::resource('tracker', 'Isabry\Sentinel\Controllers\TrackerController', [
 		'only' => ['index', 'show', 'destroy'],
 	]);
+	Route::post('tracker/addposition', [
+		'uses' => 'Isabry\Sentinel\Controllers\TrackerController@addPosition',
+		'as' => 'tracker.addposition',
+	]);
 // });

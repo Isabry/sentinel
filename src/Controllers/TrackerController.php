@@ -12,7 +12,9 @@ use View;
 use Debugbar;
 use URL;
 use Redirect;
+use Request;
 use Response;
+use Log;
 use Isabry\Sentinel\Models\Device;
 use Isabry\Sentinel\Models\Track;
 
@@ -25,7 +27,7 @@ class TrackerController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->middleware('auth');
+		// $this->middleware('auth');
 		// $this->middleware('roles');
 	}
 
@@ -46,6 +48,38 @@ class TrackerController extends Controller {
 	}
 
 	/**
+	 * Store a new position.
+	 *
+	 * @return Response
+	 */
+	public function addPosition(Request $request)
+	{
+		// $position = Request::all();
+		// Log::info("In Coming Data", $position );
+
+		$track = new Track;
+
+		$track->device_id = 1;
+		$track->latitude  = Request::get('latitude');
+		$track->longitude = Request::get('longitude');
+		$track->accuracy  = Request::get('accuracy', '');
+		$track->altitude  = Request::get('altitude', '');
+		$track->speed     = Request::get('speed', '');
+		$track->timestamp = Request::get('timestamp', '');
+
+		
+		$track->save();
+
+		$data = [
+			'message' => 'add position',
+		];
+		$response = Response::json($data);
+		$response->header('Content-Type', 'application/json');
+
+		return $response;
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
@@ -60,7 +94,7 @@ class TrackerController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
 		//
 	}

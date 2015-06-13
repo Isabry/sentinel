@@ -24,6 +24,9 @@ class CreateTracksTable extends Migration {
 			$table->integer('device_id');
 			$table->string('latitude');
 			$table->string('longitude');
+			$table->string('accuracy')->default('');;
+			$table->string('altitude')->default('');;
+			$table->string('speed')->default('');;
 			$table->timestamp('timestamp');
 
 			$table->timestamps();
