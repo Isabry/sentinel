@@ -2,7 +2,8 @@ var map;
 var drawMngt;
 var drawStatus=false;
 var currentShap=0;
-
+var nameShap="";
+var colorShap="#ff0000";
 function initialize() {
 	map = new GMaps({
 		div: '#map',
@@ -12,9 +13,9 @@ function initialize() {
 	});
 
 	formOption = {
-		fillColor: '#ff0000',
+		fillColor: colorShap,
 		fillOpacity: 0.2,
-		strokeColor: '#ff0000',
+		strokeColor: colorShap,
 		strokeOpacity: 0.2,
 		strokeWeight: 2,
 		clickable: true,
@@ -40,11 +41,10 @@ function initialize() {
 	drawStatus=true;
 
 	new_circle(drawMngt);
-
-	new_polygon(drawMngt)
+	new_polygon(drawMngt);
 
 	google.maps.event.addListener(drawMngt, 'drawingmode_changed', function() {
-		// console.log("====================> Mode Changed ");
+		console.log("====================> Drawing Mode Changed ");
 	});
 }
 
@@ -85,6 +85,9 @@ function routes(id) {
 	};
 	start = 0;
 	$.getJSON( "tracker/"+id, function( data ) {
+		$('#instructions').html('');
+		map.removeMarkers();
+		map.cleanRoute();
 		$.each( data, function( key, val ) {
 			$('#instructions').append('<li>clieck on device '+id+' => '+key+'</li>');
 			map.addMarker({
@@ -115,6 +118,10 @@ function zones(id) {
 	
 	$.getJSON( "zones/"+id, function( data ) {
 		console.log('zone: ',  data );
+		colorShap = data.color;
+		console.log('color: ',  colorShap );
+
+		$('#instructions').html('Zone '+id+' => '+data.name+'<br/>');
 		$.each( data, function( key, val ) {
 			// $('#instructions').append('Zone '+id+' => '+key+'<br/>');
 
@@ -136,7 +143,6 @@ function zones(id) {
 				// console.log('polygon: ',  path );
 				edit_polygon(path);
 			}
-
 		});
 	});
 }
@@ -147,10 +153,10 @@ function show_circle(bound) {
 					lat: bound.latitude,
 					lng: bound.longitude,
 					radius: bound.radius,
-					strokeColor: '#ff0000',
+					strokeColor: colorShap,
 					strokeOpacity: 0.2,
 					strokeWeight: 2,
-					fillColor: '#ff0000',
+					fillColor: colorShap,
 					fillOpacity: 0.2,
 					clickable: true,
 					editable: true,
@@ -231,10 +237,10 @@ function events_circle(circle) {
 function show_polygon(path) {
 	var polygon = map.drawPolygon({
 					paths: path,
-					strokeColor: '#ff0000',
+					strokeColor: colorShap,
 					strokeOpacity: 0.2,
 					strokeWeight: 2,
-					fillColor: '#ff0000',
+					fillColor: colorShap,
 					fillOpacity: 0.2,
 					clickable: true,
 					editable: true,

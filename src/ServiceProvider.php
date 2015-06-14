@@ -46,10 +46,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 		// Publish assets
 		$this->publishes([
 			__DIR__.'/../assets/css/map.css' => base_path('/public/css/map.css'),
-			// __DIR__.'/../assets/js/map.js' => base_path('/public/js/map.js'),
+			__DIR__.'/../assets/js/map.js' => base_path('/public/js/map.js'),
 			__DIR__.'/../assets/js/gmaps.js' => base_path('/public/js/gmaps.js'),
 			__DIR__.'/../assets/js/gmaps.min.js' => base_path('/public/js/gmaps.min.js'),
 			__DIR__.'/../assets/js/gmaps.min.js.map' => base_path('/public/js/gmaps.min.js.map'),
+			__DIR__.'/../assets/js/fontawesome-markers.min.js' => base_path('/public/js/fontawesome-markers.min.js'),
 		], 'assets');
 
 		// Publish migrations
